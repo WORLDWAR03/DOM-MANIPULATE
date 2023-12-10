@@ -82,3 +82,7 @@
     width: auto;
     height: 200px;
   }
+
+  #err{
+    color: red;
+  }

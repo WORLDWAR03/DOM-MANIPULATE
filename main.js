@@ -252,32 +252,49 @@ var button = document.getElementById('button');
 
 var form = document.querySelector('form');
 var itemList = document.getElementById('items');
+var errElem = document.querySelector('#err');
 
 form.addEventListener('submit', addItem);
 itemList.addEventListener('click' ,deleteItem)
 
 function addItem(e){
-   e.preventDefault();
+    e.preventDefault()
    var name = document.getElementById('name').value;
    var email = document.getElementById('email').value;
-   
-   var newlist = document.createElement('li');
-   newlist.className ='list-group-item';
 
-   newlist.appendChild(document.createTextNode('name:'+name +'  ,email:'+email));
+   const message = [];
+   if(name === '' || name === null){
+    message.push('Name is required')
+   }
+    if(email == '' || email === null){
+    message.push('Email is required')
+   }
+   if(message.length > 0){
+    e.preventDefault();
+    errElem.innerHTML = message.join(', ');
+   }
+    
 
-   console.log(newlist);
-
-   // delete button element
-   var deleteButton = document.createElement('button');
-
-   deleteButton.className = "btn btn-dark btn-sm float-right delete m-1";
-
-   deleteButton.appendChild(document.createTextNode('X'))
-
-   newlist.appendChild(deleteButton)
-
-   itemList.appendChild(newlist)
+  if(message.length == 0){
+    var newlist = document.createElement('li');
+    newlist.className ='list-group-item';
+ 
+    newlist.appendChild(document.createTextNode(name + email));
+ 
+    console.log(newlist);
+ 
+    // delete button element
+    var deleteButton = document.createElement('button');
+ 
+    deleteButton.className = "btn btn-dark btn-sm float-right delete m-1";
+ 
+    deleteButton.appendChild(document.createTextNode('X'))
+ 
+    newlist.appendChild(deleteButton)
+ 
+    itemList.appendChild(newlist)
+    
+  }
    
 }
 
